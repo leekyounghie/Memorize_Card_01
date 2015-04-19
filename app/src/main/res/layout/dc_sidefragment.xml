@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.starnamu.projcet.memorize_card.fragment_folder.SideFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <Button
+        android:id="@+id/Study"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="학습 버튼" />
+
+    <Button
+        android:id="@+id/Setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="설정 버튼" />
+
+    <Button
+        android:id="@+id/Statistics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="통계 버튼" />
+
+    <Button
+        android:id="@+id/DBControl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DB 컨틀롤" />
+
+</LinearLayout>

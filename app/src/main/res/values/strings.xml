@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">단어요</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">설정</string>
+    <string name="main_menu">메뉴</string>
+    <string name="hello_blank_fragment" />
+    <string name="title_activity_main_activity__intro">MainActivity_Intro</string>
+</resources>
