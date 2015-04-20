@@ -47,6 +47,22 @@ public class SettingFragment extends Fragment implements FileNameInterface {
         choicecount = (EditText) getActivity().findViewById(R.id.choicecount);
         seekbar.setProgress(DefaultsSeekBar);
         choicecount.setText(Integer.toString(DefaultsSeekBar));
+        getSettingValue();
+    }
+
+    public void getSettingValue() {
+        try {
+            saveSetting = new AutoSaveSetting(SaveSettingFileName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        saveSetting.Ready();
+        int i = saveSetting.ReadInt("ToDayWordCounter", 0);
+        if (i >= 0) {
+            seekbar.setProgress(i);
+            choicecount.setText(Integer.toString(i));
+        }
+        saveSetting.EndReady();
     }
 
     //설정값을  txt파일로 저장

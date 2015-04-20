@@ -1,10 +1,12 @@
 package com.starnamu.projcet.memorize_card.card_viewpager;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.starnamu.projcet.memorize_card.R;
+import com.starnamu.projcet.memorize_card.database_folder.DataBaseControl;
+import com.starnamu.projcet.memorize_card.database_folder.Datainterface;
 
 import java.util.ArrayList;
 
@@ -22,19 +26,25 @@ import java.util.ArrayList;
  */
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private ArrayList<WordCard> wordCardArrayList = new ArrayList<WordCard>();
+    Context mContext;
+    private ArrayList<WordCard> wordCardArrayList;
+    DataBaseControl DBC;
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    public ViewPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
+        Log.i("ViewPagerAdapter Log", "내용입니다.");
+        this.mContext = context;
+        DBC = new DataBaseControl(mContext);
+        wordCardArrayList = DBC.getCards();
     }
 
     @Override
     public Fragment getItem(int position) {
+        Log.i("getItem Log", "내용입니다.");
 
         String Word = wordCardArrayList.get(position).getWord();
         int Value = wordCardArrayList.get(position).getLevel();
         String Translate = wordCardArrayList.get(position).getTranslate();
-
         PageFragment pageFragment = new PageFragment(Word, Value, Translate);
 
         return pageFragment;
@@ -61,6 +71,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             this.word = word;
             this.value = value;
             this.translate = translate;
+            Log.i("PageFragment Log", "내용입니다.");
+
         }
 
         @Override
@@ -84,6 +96,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             viewPager_word.setText(word);
             viewPager_level.setText("Level : " + value);
             viewPager_tranlate.setText(translate);
+            Log.i("onCreateView Log", "내용입니다.");
             return view;
         }
 

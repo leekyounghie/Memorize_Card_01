@@ -2,6 +2,7 @@ package com.starnamu.projcet.memorize_card.database_folder;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.View;
 
 import com.starnamu.projcet.memorize_card.FileNameInterface;
@@ -17,27 +18,31 @@ public class DataBaseControl implements FileNameInterface {
     Context mContext;
     AutoSaveSetting getSetting;
     int ToDayWordCounter;
-    Datainterface datainterface;
+//    Datainterface datainterface;
 
     public DataBaseControl(Context context) {
         mContext = context;
         getSettingValue();
-        initData();
+        init();
         goLev1();
-        datainterface.passArrayList(Cards);
     }
 
-    public void initData() {
+    public void init() {
         if (database != null) {
             database.close();
             database = null;
         }
 
         database = DataBaseService.getInstance(mContext);
-        database.open();
-//        database.initData();
-        Cards = new ArrayList<WordCard>();
 
+        Log.i("DataBaseContro log", "내용입니다.");
+        database.open();
+        database.initData();
+//        datainterface.passArrayList(Cards);
+    }
+
+    public ArrayList<WordCard> getCards() {
+        return Cards;
     }
 
     public void getSettingValue() {
@@ -47,7 +52,7 @@ public class DataBaseControl implements FileNameInterface {
             e.printStackTrace();
         }
         getSetting.Ready();
-        ToDayWordCounter = getSetting.ReadInt("ToDayWordCounter", 1);
+        ToDayWordCounter = getSetting.ReadInt("ToDayWordCounter", 0);
         getSetting.EndReady();
     }
 
@@ -65,7 +70,7 @@ public class DataBaseControl implements FileNameInterface {
 
         if (recordCount > 0) {
             //seekbar의 설정값 필요
-            for (int i = 0; i < recordCount; i++) {
+            for (int i = 0; i > recordCount; i++) {
                 outCursor.moveToNext();
                 String wordCode = outCursor.getString(wordword);
                 int level = Integer.parseInt(outCursor.getString(wordlevel));
@@ -75,20 +80,18 @@ public class DataBaseControl implements FileNameInterface {
                 parma.add(new WordCard(wordCode, level, translate));
             }
         }
-
         outCursor.close();
         return parma;
     }
 
     public void goLev1() {
-        Cursor cursor = database.queryWordsTable(1, ToDayWordCounter);
+        Cursor cursor = database.queryWordsTable(1, 15);
         Cards = AddCursorData(cursor);
     }
 
     public void upWord1(View v) {
         database.queryWordsUpdate("UP", "when");
     }
-
 }
 
 /*

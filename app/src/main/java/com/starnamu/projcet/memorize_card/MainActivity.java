@@ -9,7 +9,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -27,12 +29,9 @@ public class MainActivity extends ActionBarActivity implements SideFragment.choi
     public final static int STUDYFRAGMENT = 0;
     public final static int SETTINGFRAGMENT = 1;
     public final static int STATISTICSTHREEFRAGMENT = 2;
-    public final static int DATABASECONTROLFRAGMENT = 3;
-    /*settingFragment에서 넘어오는 값으로 변경해야함*/
-    private int mToDayWordCounter;
+//    public final static int DATABASECONTROLFRAGMENT = 3;
 
     Toolbar toolbar;
-    Bundle CardCount = null;
     /*
      * 좌측 숨겨진 메뉴와 메인화면을 담는 Layoiut
      * toolbar instanc에 toolbar의 속성을 정의하면 된다.
@@ -51,6 +50,7 @@ public class MainActivity extends ActionBarActivity implements SideFragment.choi
         init();
         Intent boradcastIntent = new Intent(AwakeReceiver.ACTION_START);
         sendBroadcast(boradcastIntent);
+        fragmentReplace(STUDYFRAGMENT);
     }
 
     @Override
@@ -62,8 +62,6 @@ public class MainActivity extends ActionBarActivity implements SideFragment.choi
     public void init() {
         titleBar();//TitleBar 구현 Method 호출
         removeStatusBar(true);
-        CardCount = new Bundle();
-        CardCount.putInt("cordConunt", mToDayWordCounter);
 
     }
 
@@ -104,11 +102,11 @@ public class MainActivity extends ActionBarActivity implements SideFragment.choi
                 Toast.makeText(this, "세번째 프래그 먼트 크릭", Toast.LENGTH_LONG).show();
                 break;
 
-            case R.id.DBControl:
+          /*  case R.id.DBControl:
                 mCurrentFragmentIndex = DATABASECONTROLFRAGMENT;
                 fragmentReplace(mCurrentFragmentIndex);
                 Toast.makeText(this, "네번째 프래그 먼트 크릭", Toast.LENGTH_LONG).show();
-                break;
+                break;*/
 
             default:
                 mCurrentFragmentIndex = STUDYFRAGMENT;
@@ -140,9 +138,9 @@ public class MainActivity extends ActionBarActivity implements SideFragment.choi
             case STATISTICSTHREEFRAGMENT:
                 newFragment = new StaticFragment();
                 break;
-            case DATABASECONTROLFRAGMENT:
+         /*   case DATABASECONTROLFRAGMENT:
                 newFragment = new DBControlFragment();
-                break;
+                break;*/
             default:
                 break;
         }
