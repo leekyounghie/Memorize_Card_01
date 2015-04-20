@@ -35,7 +35,7 @@ public class DataBaseControl implements FileNameInterface {
 
         database = DataBaseService.getInstance(mContext);
         database.open();
-        database.initData();
+//        database.initData();
         Cards = new ArrayList<WordCard>();
 
     }
